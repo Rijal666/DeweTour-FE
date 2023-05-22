@@ -10,10 +10,33 @@ import { useState } from "react";
 function Detail() {
   const params = useParams();
   const [count, setCount] = useState(0);
+  const [total, setTotal] = useState(false);
   const id = parseInt(params.id);
   const trips = JSON.parse(localStorage.getItem("getTrip"));
   const detail = trips[id];
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/Payment");
+  };
+
+  // const incrementCart = async (id, orderQuantity) => {
+  //   const response = await API.patch(`/increase/${id}`);
+  //   setTotal({
+  //     id: id,
+  //     order_quantity: orderQuantity + 1,
+  //   });
+  // };
+
+  // const decrementCart = async (id, orderQuantity) => {
+  //   if (orderQuantity > 1) {
+  //     const response = await API.patch(`/decrease/${id}`);
+  //     setTotal({
+  //       id: id,
+  //       order_quantity: orderQuantity - 1,
+  //     });
+  //   }
+  // };
 
   const Add = () => {
     if (count === 10) return;
@@ -24,6 +47,10 @@ function Detail() {
     if (count === 0) return;
     setCount(count - 1);
   };
+
+  // const Total = () => {
+  //   {count} * {detail.price}
+  // }
 
   const responsive = {
     superLargeDesktop: {
@@ -145,8 +172,9 @@ function Detail() {
             IDR. 12,000,000
           </h2>
         </div>
-        <div>
+        <div className="d-flex justify-content-end">
           <Button
+            onClick={handleClick}
             style={{
               backgroundColor: "#FFAF00",
               fontWeight: "bold",

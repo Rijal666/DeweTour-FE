@@ -28,7 +28,7 @@ export const Login = (props) => {
         showConfirmButton: true,
       });
       if (user.email === "admin@gmail.com") {
-        navigate("/Profile");
+        navigate("/Income");
       } else {
         window.location.reload();
       }

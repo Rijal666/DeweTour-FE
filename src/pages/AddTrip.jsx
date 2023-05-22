@@ -4,6 +4,7 @@ import { Container, Form, Button } from "react-bootstrap";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbars from "../components/Navbar";
+import Swal from "sweetalert2";
 import Footer from "../components/Footer";
 function AddTrip() {
   // document.querySelector("#image").addEventListener("change", function () {
@@ -16,7 +17,7 @@ function AddTrip() {
   //   reader.readAsDataURL(files[0]);
   // });
   const navigate = useNavigate();
-  const [imageUrl, setImageUrl] = useState();
+  const [imageUrl, setImageUrl] = useState("/images/australia.png");
 
   const handleImage = (e) => {
     const file = e.target.files[0];
@@ -55,6 +56,12 @@ function AddTrip() {
       Image: imageUrl,
     };
     const getTrip = JSON.parse(localStorage.getItem("getTrip"));
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Add Trip success",
+      showConfirmButton: true,
+    });
 
     if (getTrip === null) {
       localStorage.setItem("getTrip", JSON.stringify([newTrip]));

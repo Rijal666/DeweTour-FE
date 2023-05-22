@@ -1,9 +1,27 @@
 /** @format */
 import Navbars from "../components/Navbar";
-import { Button, Container } from "react-bootstrap";
+import { Form, Container } from "react-bootstrap";
 import Footer from "../components/Footer";
+import { useState, useEffect } from "react";
 
 function Profile() {
+  const getUser = JSON.parse(localStorage.getItem("loginUsers"));
+
+  const [image, setImage] = useState("/images/profile.svg");
+
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    const image = URL.createObjectURL(file);
+    setImage(image);
+    localStorage.setItem("image", JSON.stringify(image));
+  };
+  // const getImage = JSON.parse(localStorage.getItem("image"));
+  useEffect(() => {
+    if (localStorage.getItem("image")) {
+      setImage(JSON.parse(localStorage.getItem("image")));
+    }
+  }, []);
+
   return (
     <>
       <Navbars />
@@ -28,7 +46,7 @@ function Profile() {
                     height="50px"
                   />
                   <div>
-                    <h5 className="fw-bold">Tatang Sutatang</h5>
+                    <h5 className="fw-bold">{getUser.fullname}</h5>
                     <p style={{ color: "#8A8C90", fontWeight: "bold" }}>
                       Full name
                     </p>
@@ -42,7 +60,7 @@ function Profile() {
                     height="50px"
                   />
                   <div>
-                    <h5 className="fw-bold">Tatang Sutatang</h5>
+                    <h5 className="fw-bold">{getUser.email}</h5>
                     <p style={{ color: "#8A8C90", fontWeight: "bold" }}>
                       Email
                     </p>
@@ -56,7 +74,7 @@ function Profile() {
                     height="50px"
                   />
                   <div>
-                    <h5 className="fw-bold">Tatang Sutatang</h5>
+                    <h5 className="fw-bold">{getUser.phone}</h5>
                     <p style={{ color: "#8A8C90", fontWeight: "bold" }}>
                       Mobile phone
                     </p>
@@ -70,7 +88,7 @@ function Profile() {
                     height="50px"
                   />
                   <div>
-                    <h5 className="fw-bold">Tatang Sutatang</h5>
+                    <h5 className="fw-bold">{[getUser.address]}</h5>
                     <p style={{ color: "#8A8C90", fontWeight: "bold" }}>
                       Addres
                     </p>
@@ -78,18 +96,43 @@ function Profile() {
                 </div>
               </div>
               <div>
-                <div className="mb-3">
-                  <img src="/images/profile.svg" alt="" />
-                </div>
-                <Button
-                  style={{
-                    backgroundColor: "#FFAF00",
-                    padding: "10px 65px",
-                    border: "none",
-                  }}
+                <div
+                  className="mb-5"
+                  style={{ width: "300px", height: "300px" }}
                 >
-                  Change Photo Profile
-                </Button>
+                  <img src={image} alt="" width="100%" />
+                </div>
+                <Form.Group>
+                  <Form.Label
+                    style={{
+                      width: "100%",
+                      backgroundColor: "#FFAF00",
+                      cursor: "pointer",
+                    }}
+                    className="rounded text-center mt-5"
+                  >
+                    <div>
+                      <p
+                        className="py-2 mb-0"
+                        style={{
+                          fontSize: "20px",
+                          color: "white",
+                        }}
+                      >
+                        Change Photo Profile
+                      </p>
+                      <div>
+                        <Form.Control
+                          type="file"
+                          name="image"
+                          id="image"
+                          onChange={handleImage}
+                          hidden
+                        />
+                      </div>
+                    </div>
+                  </Form.Label>
+                </Form.Group>
               </div>
             </div>
           </div>

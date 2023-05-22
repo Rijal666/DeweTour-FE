@@ -1,6 +1,7 @@
 /** @format */
 import React, { useState, useEffect } from "react";
 import { Container, Button, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { json } from "react-router-dom";
 import ModalLogin from "./ModalLogin";
 import ModalRegister from "./ModalRegister";
 
@@ -9,6 +10,7 @@ function Navbars() {
   const [showRegister, setShowRegister] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [loginUsers, setLoginUsers] = useState({});
+  const [image, setImage] = useState("/images/Ellipse.svg");
 
   const handleClose = () => {
     setShowLogin(false);
@@ -26,6 +28,14 @@ function Navbars() {
   };
 
   useEffect(() => {
+    if (localStorage.getItem("image")) {
+      setImage(JSON.parse(localStorage.getItem("image")));
+    }
+  }, []);
+
+  // const getImage = JSON.parse(localStorage.getItem("image"));
+
+  useEffect(() => {
     if (localStorage.getItem("loginUsers")) {
       setLoginUsers(JSON.parse(localStorage.getItem("loginUsers")));
     }
@@ -33,6 +43,7 @@ function Navbars() {
 
   const handleLogout = () => {
     localStorage.removeItem("loginUsers");
+    localStorage.removeItem("image");
     setLoginUsers({});
   };
 
@@ -49,7 +60,7 @@ function Navbars() {
         }}
       >
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/">
             <img src="/images/icon.png" width="70%" alt="#"></img>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -79,13 +90,7 @@ function Navbars() {
               ) : loginUsers?.email === "admin@gmail.com" ? (
                 <>
                   <NavDropdown
-                    title={
-                      <img
-                        src="/images/Ellipse.svg"
-                        alt=""
-                        style={{ width: "60px" }}
-                      />
-                    }
+                    title={<img src={image} alt="" style={{ width: "60px" }} />}
                   >
                     <NavDropdown.Item href="/IncomeTrip">
                       <img
@@ -112,9 +117,14 @@ function Navbars() {
                   <NavDropdown
                     title={
                       <img
-                        src="/images/Ellipse.svg"
+                        src={image}
                         alt=""
-                        style={{ width: "60px" }}
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          border: "solid orange",
+                        }}
+                        className="rounded-circle"
                       />
                     }
                   >
@@ -126,7 +136,7 @@ function Navbars() {
                       />
                       <span className="ms-3 fw-bold">Profile</span>
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="/Profile">
+                    <NavDropdown.Item href="/Payment">
                       <img
                         src="/images/bill.svg"
                         alt=""

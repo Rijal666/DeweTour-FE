@@ -1,7 +1,10 @@
 /** @format */
 import { Button, Form, InputGroup } from "react-bootstrap";
+import { useState } from "react";
 
 function Jumbotron() {
+  const [query, setQuery] = useState("");
+
   return (
     <div>
       <img
@@ -29,7 +32,10 @@ function Jumbotron() {
         </div>
         <div>
           <InputGroup className="mb-5">
-            <Form.Control aria-label="Recipient's username" />
+            <Form.Control
+              aria-label="Recipient's username"
+              onChange={(e) => setQuery(e.target.value)}
+            />
             <Button
               style={{
                 backgroundColor: "#FFAF00",
