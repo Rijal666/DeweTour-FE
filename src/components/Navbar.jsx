@@ -1,7 +1,7 @@
 /** @format */
 import React, { useState, useEffect } from "react";
 import { Container, Button, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { json } from "react-router-dom";
+// import { json } from "react-router-dom";
 import ModalLogin from "./ModalLogin";
 import ModalRegister from "./ModalRegister";
 
@@ -30,6 +30,7 @@ function Navbars() {
   useEffect(() => {
     if (localStorage.getItem("image")) {
       setImage(JSON.parse(localStorage.getItem("image")));
+      // window.location.reload();
     }
   }, []);
 

@@ -5,7 +5,6 @@ import { Container, NavLink } from "react-bootstrap";
 
 function Cards() {
   const getTrip = JSON.parse(localStorage.getItem("getTrip"));
-  console.log(getTrip);
   return (
     <Container>
       <div

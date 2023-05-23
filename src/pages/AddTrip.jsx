@@ -17,7 +17,7 @@ function AddTrip() {
   //   reader.readAsDataURL(files[0]);
   // });
   const navigate = useNavigate();
-  const [imageUrl, setImageUrl] = useState("/images/australia.png");
+  const [imageUrl, setImageUrl] = useState();
 
   const handleImage = (e) => {
     const file = e.target.files[0];

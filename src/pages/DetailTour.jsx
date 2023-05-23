@@ -2,8 +2,9 @@
 import Navbars from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Carousel from "react-multi-carousel";
+import ModalForm from "../components/ModalForm";
 import "react-multi-carousel/lib/styles.css";
 import { useState } from "react";
 
@@ -11,13 +12,18 @@ function Detail() {
   const params = useParams();
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(false);
+  const [showForm, setShowForm] = useState(false);
   const id = parseInt(params.id);
   const trips = JSON.parse(localStorage.getItem("getTrip"));
   const detail = trips[id];
-  const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate("/Payment");
+  const handleClose = () => {
+    setShowForm(false);
+  };
+
+  const handleShowForm = () => {
+    handleClose(true);
+    setShowForm(true);
   };
 
   // const incrementCart = async (id, orderQuantity) => {
@@ -174,7 +180,7 @@ function Detail() {
         </div>
         <div className="d-flex justify-content-end">
           <Button
-            onClick={handleClick}
+            onClick={handleShowForm}
             style={{
               backgroundColor: "#FFAF00",
               fontWeight: "bold",
@@ -186,6 +192,7 @@ function Detail() {
           </Button>
         </div>
       </div>
+      <ModalForm show={showForm} onHide={handleClose} />
       <Footer />
     </>
   );
